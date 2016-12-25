@@ -60,7 +60,7 @@ public class Hospital {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getDoctorsByFreeTimeRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "searchFreeTimeByDoctorRequest")
     @ResponsePayload
     public SearchFreeTimeByDoctorResponse getDoctorsByFreeTime(@RequestPayload SearchFreeTimeByDoctorRequest request) {
         SearchFreeTimeByDoctorResponse response = new SearchFreeTimeByDoctorResponse();

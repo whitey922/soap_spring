@@ -52,6 +52,7 @@ public class DoctorDAO {
 
     public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
 
+        //TODO rewrite into 2 statements to throw correct error
         List<Booking> bookingsToFind = bookings.stream().
                 filter(bookings -> bookings.getDoctorName().equals(doctorsName)
                         && startTime < bookings.getTimeSlot().intValue()
