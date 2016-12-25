@@ -1,13 +1,12 @@
 package app.service;
 
 import app.dao.DoctorDAO;
-import org.omg.CORBA.Object;
 import org.springframework.stereotype.Component;
 import preprod.qa.soap.Booking;
 import preprod.qa.soap.Doctor;
 import preprod.qa.soap.Specialization;
 
-import java.util.Objects;
+import java.util.List;
 
 /**
  * User:Anton_Iehorov
@@ -27,24 +26,16 @@ public class ScpecializtionService {
 
 
     public Booking addBooking(Booking booking) {
-        if (Objects.isNull(booking)) {
-            throw new IllegalArgumentException("Invalid booking!");
-        }
         return doctorDAO.addBooking(booking);
     }
 
     public Booking cancelBooking(Booking booking) {
-        if (Objects.isNull(booking)) {
-            throw new IllegalArgumentException("Invalid booking cancel!");
-        }
-        try {
-
-            return doctorDAO.cancelBooking(booking);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+        return doctorDAO.cancelBooking(booking);
     }
+    public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
+        return doctorDAO.getDoctorsByFreeTime(startTime, endTime, doctorsName);
+    }
+
 //    public Booking addBooking(Booking booking) {
 //        if (booking == null) {
 //            throw new IllegalArgumentException("Invalid booking!");

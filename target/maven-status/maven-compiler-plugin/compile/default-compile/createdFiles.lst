@@ -2,13 +2,17 @@ preprod\qa\soap\AddBookingResponse.class
 preprod\qa\soap\ObjectFactory.class
 preprod\qa\soap\package-info.class
 preprod\qa\soap\SearchDoctorBySpecialResponse.class
+preprod\qa\soap\SearchFreeTimeByDoctorRequest.class
+preprod\qa\soap\SearchFreeTimeByDoctorResponse.class
 preprod\qa\soap\Booking.class
 app\web\Hospital.class
 preprod\qa\soap\Doctor.class
 preprod\qa\soap\SearchDoctorBySpecialRequest.class
+app\exception\DoctorEnabledException.class
 preprod\qa\soap\CancelBookingResponse.class
 preprod\qa\soap\Specialization.class
 app\dao\DoctorDAO.class
+app\exception\NoFoundDoctorException.class
 preprod\qa\soap\AddBookingRequest.class
 preprod\qa\soap\CancelBookingRequest.class
 app\config\WebServiceConfig.class

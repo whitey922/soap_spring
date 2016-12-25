@@ -1,11 +1,15 @@
+C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\SearchFreeTimeByDoctorResponse.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\Application.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\service\ScpecializtionService.java
+C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\exception\NoFoundDoctorException.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\CancelBookingRequest.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\SearchDoctorBySpecialRequest.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\SearchDoctorBySpecialResponse.java
+C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\exception\DoctorEnabledException.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\Booking.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\package-info.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\Specialization.java
+C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\SearchFreeTimeByDoctorRequest.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\web\Hospital.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\app\config\WebServiceConfig.java
 C:\Users\IMPERIVM\Desktop\soap_task\src\main\java\preprod\qa\soap\Doctor.java

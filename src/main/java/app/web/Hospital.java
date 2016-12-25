@@ -28,7 +28,7 @@ public class Hospital {
     @ResponsePayload
     public SearchDoctorBySpecialResponse getSpecialists(@RequestPayload SearchDoctorBySpecialRequest request) {
         SearchDoctorBySpecialResponse response = new SearchDoctorBySpecialResponse();
-        response.setDoctor(scpecializtionService.getDoctorsBySpecial(request.getSpecialization()));
+//        response.setDoctor(scpecializtionService.getDoctorsBySpecial(request.getSpecialization()));
 
         return response;
     }
@@ -57,6 +57,18 @@ public class Hospital {
 
         response.setBooking(scpecializtionService.cancelBooking(booking));
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getDoctorsByFreeTimeRequest")
+    @ResponsePayload
+    public SearchFreeTimeByDoctorResponse getDoctorsByFreeTime(@RequestPayload SearchFreeTimeByDoctorRequest request) {
+        SearchFreeTimeByDoctorResponse response = new SearchFreeTimeByDoctorResponse();
+
+        response.getName().addAll(scpecializtionService.getDoctorsByFreeTime(
+                request.getTimeSlotStart().intValue(),
+                request.getTimeSlotFinish().intValue(),
+                request.getDoctorName()));
         return response;
     }
 //    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addBookingRequest")

@@ -12,6 +12,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * User:Anton_Iehorov
@@ -23,6 +24,7 @@ public class DoctorDAO {
     private List<Doctor> doctors = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
 
+    //TODO should divide into classes. Class has a lot of responsibility
     {
         Doctor doctor = new Doctor();
         doctor.setName("Peter");
@@ -48,17 +50,25 @@ public class DoctorDAO {
         bookings.add(bookingSecond);
     }
 
-    public Doctor getDoctorsBySpecial(Specialization specialization) {
-        Optional<Doctor> doctor = doctors.stream().
-                filter(doctors -> specialization.equals(doctors.getSpecialization())).findAny();
-        return doctor.isPresent() ? doctor.get() : null;
+    public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
+
+        List<Booking> bookingsToFind = bookings.stream().
+                filter(bookings -> bookings.getDoctorName().equals(doctorsName)
+                        && startTime < bookings.getTimeSlot().intValue()
+                        && endTime > bookings.getTimeSlot().intValue()
+                        && bookings.getBookingStatus().equals(Status.ACTIVE)
+                ).collect(Collectors.toList());
+
+        if (!bookingsToFind.isEmpty()) return bookingsToFind;
+        throw new NoFoundDoctorException("Cannot find doctor by its name!");
+
     }
 
     public Booking addBooking(Booking booking) {
-        for (Booking bookingToFind: bookings) {
-            if(bookingToFind.getDoctorName().equals(booking.getDoctorName())) {
-                if(bookingToFind.getTimeSlot().equals(booking.getTimeSlot())) {
-                    if(bookingToFind.getBookingStatus().equals(Status.ACTIVE)) {
+        for (Booking bookingToFind : bookings) {
+            if (bookingToFind.getDoctorName().equals(booking.getDoctorName())) {
+                if (bookingToFind.getTimeSlot().equals(booking.getTimeSlot())) {
+                    if (bookingToFind.getBookingStatus().equals(Status.ACTIVE)) {
                         bookingToFind.setBookingStatus(Status.CLOSED);
                         bookings.add(booking);
                         return booking;
@@ -81,22 +91,13 @@ public class DoctorDAO {
         if (bookingSearch.isPresent()) {
             bookings.remove(bookingSearch.get());
             return booking;
-        } else throw new IllegalArgumentException("dfdgf");
+        } else throw new IllegalArgumentException("Invalid booking cancel!");
 
     }
-//    public Booking addBooking(Booking booking) {
-//        bookings.add(booking);
-//        return booking;
-//    }
-//
-//    public Booking cancelBooking(Booking booking) {
-//        for (Booking cancleBook : bookings) {
-//            if (cancleBook.getBookingStatus().equals(Status.CLOSED) &&
-//                    cancleBook.getDoctorName().equals(booking.getDoctorName()) && cancleBook.getTimeSlot().equals(booking.getTimeSlot())) {
-////                bookings.remove(cancleBook);
-//                return cancleBook;
-//            }
-//        }
-//        throw new IllegalArgumentException("Test");
-//    }
+
+    public Doctor getDoctorsBySpecial(Specialization specialization) {
+        Optional<Doctor> doctor = doctors.stream().
+                filter(doctors -> specialization.equals(doctors.getSpecialization())).findAny();
+        return doctor.isPresent() ? doctor.get() : null;
+    }
 }
