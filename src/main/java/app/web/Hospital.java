@@ -28,7 +28,7 @@ public class Hospital {
     @ResponsePayload
     public SearchDoctorBySpecialResponse getSpecialists(@RequestPayload SearchDoctorBySpecialRequest request) {
         SearchDoctorBySpecialResponse response = new SearchDoctorBySpecialResponse();
-//        response.setDoctor(scpecializtionService.getDoctorsBySpecial(request.getSpecialization()));
+        response.setDoctor(scpecializtionService.getDoctorsBySpecial(request.getSpecialization()));
 
         return response;
     }
