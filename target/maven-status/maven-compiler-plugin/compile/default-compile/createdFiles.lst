@@ -5,6 +5,7 @@ preprod\qa\soap\SearchDoctorBySpecialResponse.class
 preprod\qa\soap\SearchFreeTimeByDoctorRequest.class
 preprod\qa\soap\SearchFreeTimeByDoctorResponse.class
 preprod\qa\soap\Booking.class
+app\controller\AddBookingController.class
 app\web\Hospital.class
 preprod\qa\soap\Doctor.class
 preprod\qa\soap\SearchDoctorBySpecialRequest.class
