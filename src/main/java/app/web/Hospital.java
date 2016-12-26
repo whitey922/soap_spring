@@ -71,26 +71,6 @@ public class Hospital {
                 request.getDoctorName()));
         return response;
     }
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "addBookingRequest")
-//    @ResponsePayload
-//    public AddBookingResponse addBooking(@RequestPayload AddBookingRequest request) {
-//        AddBookingResponse response = new AddBookingResponse();
-//        Booking booking = new Booking();
-//        booking.setDoctorName(request.getDoctorName());
-//        booking.setTimeSlot(request.getTimeSlot());
-//        response.setBooking(scpecializtionService.addBooking(booking));
-//
-//        return response;
-//    }
-//
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "cancelBookingRequest")
-//    @ResponsePayload
-//    public CancelBookingResponse cancelBooking(@RequestPayload CancelBookingRequest request) {
-//        CancelBookingResponse response = new CancelBookingResponse();
-//        Booking booking = new Booking();
-//        booking.setDoctorName(request.getDoctorName());
-//        booking.setTimeSlot(request.getTimeSlot());
-//        response.setBooking(scpecializtionService.cancelBooking(booking));
-//        return response;
-//    }
+
+
 }
