@@ -75,10 +75,11 @@ public class DoctorDAO {
                     if (bookingToFind.getBookingStatus().equals(Status.CLOSED)) {
                         throw new DoctorEnabledException("Booking is enable!");
                     }
+                    throw new DoctorEnabledException("Booking is already exist!");
                 }
             }
         }
-        booking.setBookingStatus(Status.CLOSED);
+        booking.setBookingStatus(Status.ACTIVE);
         bookings.add(booking);
         return booking;
     }
@@ -89,9 +90,14 @@ public class DoctorDAO {
                         bookings.getTimeSlot().equals(booking.getTimeSlot())).findAny();
 
         if (bookingSearch.isPresent()) {
-            bookingSearch.get().setBookingStatus(Status.CLOSED);
-            return booking;
-        } else throw new IllegalArgumentException("Invalid booking cancel!");
+            if (bookingSearch.get().getBookingStatus().equals(Status.CLOSED)) {
+                throw new IllegalArgumentException("Booking has already canceled!");
+            } else {
+                bookingSearch.get().setBookingStatus(Status.CLOSED);
+                return booking;
+            }
+        } else
+            throw new IllegalArgumentException("There is no booking at this time!");
 
     }
 
