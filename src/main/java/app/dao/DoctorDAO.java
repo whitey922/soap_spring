@@ -73,7 +73,7 @@ public class DoctorDAO {
             if (bookingToFind.getDoctorName().equals(booking.getDoctorName())) {
                 if (bookingToFind.getTimeSlot().equals(booking.getTimeSlot())) {
                     if (bookingToFind.getBookingStatus().equals(Status.CLOSED)) {
-                        throw new DoctorEnabledException("Booking is enable!");
+                        throw new DoctorEnabledException("Booking is enabled!");
                     }
                     throw new DoctorEnabledException("Booking is already exist!");
                 }
