@@ -8,6 +8,7 @@ app\exception\NoFoundDoctorException.class
 preprod\qa\soap\AddBookingRequest.class
 preprod\qa\soap\CancelBookingRequest.class
 app\config\WebServiceConfig.class
+app\rest\SearchFreeTimeByDoctorRequest.class
 app\rest\AddBookingController.class
 app\Application.class
 preprod\qa\soap\AddBookingResponse.class

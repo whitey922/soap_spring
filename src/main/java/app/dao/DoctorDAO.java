@@ -51,7 +51,6 @@ public class DoctorDAO {
     }
 
     public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
-
         Optional<Booking> bookingWithDoctorName = bookings.stream().
                 filter(bookings -> bookings.getDoctorName().equals(doctorsName)).findAny();
 
@@ -77,7 +76,6 @@ public class DoctorDAO {
                         throw new DoctorEnabledException("Booking is enable!");
                     }
                 }
-
             }
         }
         booking.setBookingStatus(Status.CLOSED);
