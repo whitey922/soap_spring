@@ -40,8 +40,20 @@ public class DoctorDAO {
         Booking booking = new Booking();
         booking.setDoctorName(doctor.getName());
         booking.setBookingStatus(Status.ACTIVE);
-        booking.setTimeSlot(new BigInteger("5"));
+        booking.setTimeSlot(new BigInteger("11"));
         bookings.add(booking);
+
+        Booking bookingThird = new Booking();
+        bookingThird.setDoctorName(doctor.getName());
+        bookingThird.setBookingStatus(Status.ACTIVE);
+        bookingThird.setTimeSlot(new BigInteger("12"));
+        bookings.add(bookingThird);
+
+        Booking bookingFourth = new Booking();
+        bookingFourth.setDoctorName(doctor.getName());
+        bookingFourth.setBookingStatus(Status.ACTIVE);
+        bookingFourth.setTimeSlot(new BigInteger("13"));
+        bookings.add(bookingFourth);
 
         Booking bookingSecond = new Booking();
         bookingSecond.setDoctorName(doctorSecond.getName());
@@ -53,16 +65,19 @@ public class DoctorDAO {
     public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
 
         //TODO rewrite into 2 statements to throw correct error
-        List<Booking> bookingsToFind = bookings.stream().
-                filter(bookings -> bookings.getDoctorName().equals(doctorsName)
-                        && startTime < bookings.getTimeSlot().intValue()
-                        && endTime > bookings.getTimeSlot().intValue()
-                        && bookings.getBookingStatus().equals(Status.ACTIVE)
-                ).collect(Collectors.toList());
+        Optional<Booking> bookingWithDoctorName = bookings.stream().
+                filter(bookings -> bookings.getDoctorName().equals(doctorsName)).findAny();
 
-        if (!bookingsToFind.isEmpty()) return bookingsToFind;
-        throw new NoFoundDoctorException("Cannot find doctor by its name!");
-
+        if (!bookingWithDoctorName.isPresent())
+            throw new NoFoundDoctorException("Cannot find doctor by its name!");
+        else {
+            List<Booking> bookingToFind = bookings.stream().
+                    filter(bookings -> startTime < bookings.getTimeSlot().intValue()
+                            && endTime > bookings.getTimeSlot().intValue()
+                            && bookings.getBookingStatus().equals(Status.ACTIVE)).collect(Collectors.toList());
+            if(!bookingToFind.isEmpty()) return bookingToFind;
+        }
+        throw new DoctorEnabledException("There is no free booking at this time!");
     }
 
     public Booking addBooking(Booking booking) {
@@ -76,7 +91,7 @@ public class DoctorDAO {
                     }
                     throw new DoctorEnabledException("Booking is closed!");
                 }
-                throw new DoctorEnabledException("There is no booking at this time !");
+                throw new DoctorEnabledException("There is no booking at this time!");
             }
         }
 

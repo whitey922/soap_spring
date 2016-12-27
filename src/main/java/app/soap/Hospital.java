@@ -1,4 +1,4 @@
-package app.web;
+package app.soap;
 
 import app.service.ScpecializtionService;
 import org.springframework.beans.factory.annotation.Autowired;

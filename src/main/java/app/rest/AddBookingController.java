@@ -1,4 +1,4 @@
-package app.controller;
+package app.rest;
 
 import app.service.ScpecializtionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +34,7 @@ public class AddBookingController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public AddBookingResponse addBooking(@RequestParam(name = "doctorName") String doctorName,
-                                         @RequestParam(name = "timeSlot") BigInteger timeSlot
-    ) {
+                                         @RequestParam(name = "timeSlot") BigInteger timeSlot) {
         AddBookingResponse response = new AddBookingResponse();
         Booking booking = new Booking();
         booking.setDoctorName(doctorName);
