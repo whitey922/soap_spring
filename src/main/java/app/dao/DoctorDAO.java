@@ -24,18 +24,11 @@ public class DoctorDAO {
     private List<Doctor> doctors = new ArrayList<>();
     private List<Booking> bookings = new ArrayList<>();
 
-    //TODO should divide into classes. Class has a lot of responsibility
     {
         Doctor doctor = new Doctor();
         doctor.setName("Peter");
         doctor.setSpecialization(Specialization.DENTIST);
         doctors.add(doctor);
-
-        Doctor doctorSecond = new Doctor();
-        doctorSecond.setName("Greg");
-        doctorSecond.setSpecialization(Specialization.NEUROSURGEONS);
-        doctors.add(doctorSecond);
-
 
         Booking booking = new Booking();
         booking.setDoctorName(doctor.getName());
@@ -55,16 +48,10 @@ public class DoctorDAO {
         bookingFourth.setTimeSlot(new BigInteger("13"));
         bookings.add(bookingFourth);
 
-        Booking bookingSecond = new Booking();
-        bookingSecond.setDoctorName(doctorSecond.getName());
-        bookingSecond.setBookingStatus(Status.CLOSED);
-        bookingSecond.setTimeSlot(new BigInteger("5"));
-        bookings.add(bookingSecond);
     }
 
     public List<Booking> getDoctorsByFreeTime(int startTime, int endTime, String doctorsName) {
 
-        //TODO rewrite into 2 statements to throw correct error
         Optional<Booking> bookingWithDoctorName = bookings.stream().
                 filter(bookings -> bookings.getDoctorName().equals(doctorsName)).findAny();
 
@@ -72,10 +59,12 @@ public class DoctorDAO {
             throw new NoFoundDoctorException("Cannot find doctor by its name!");
         else {
             List<Booking> bookingToFind = bookings.stream().
-                    filter(bookings -> startTime < bookings.getTimeSlot().intValue()
-                            && endTime > bookings.getTimeSlot().intValue()
-                            && bookings.getBookingStatus().equals(Status.ACTIVE)).collect(Collectors.toList());
-            if(!bookingToFind.isEmpty()) return bookingToFind;
+                    filter(bookings ->
+                            bookings.getDoctorName().equals(bookingWithDoctorName.get().getDoctorName())
+                                    && startTime < bookings.getTimeSlot().intValue()
+                                    && endTime > bookings.getTimeSlot().intValue()
+                                    && bookings.getBookingStatus().equals(Status.ACTIVE)).collect(Collectors.toList());
+            if (!bookingToFind.isEmpty()) return bookingToFind;
         }
         throw new DoctorEnabledException("There is no free booking at this time!");
     }
@@ -84,19 +73,16 @@ public class DoctorDAO {
         for (Booking bookingToFind : bookings) {
             if (bookingToFind.getDoctorName().equals(booking.getDoctorName())) {
                 if (bookingToFind.getTimeSlot().equals(booking.getTimeSlot())) {
-                    if (bookingToFind.getBookingStatus().equals(Status.ACTIVE)) {
-                        bookingToFind.setBookingStatus(Status.CLOSED);
-                        bookings.add(booking);
-                        return booking;
+                    if (bookingToFind.getBookingStatus().equals(Status.CLOSED)) {
+                        throw new DoctorEnabledException("Booking is enable!");
                     }
-                    throw new DoctorEnabledException("Booking is closed!");
                 }
-                throw new DoctorEnabledException("There is no booking at this time!");
+
             }
         }
-
-        throw new NoFoundDoctorException("Cannot find doctor by its name!");
-
+        booking.setBookingStatus(Status.CLOSED);
+        bookings.add(booking);
+        return booking;
     }
 
     public Booking cancelBooking(Booking booking) {
@@ -105,7 +91,7 @@ public class DoctorDAO {
                         bookings.getTimeSlot().equals(booking.getTimeSlot())).findAny();
 
         if (bookingSearch.isPresent()) {
-            bookings.remove(bookingSearch.get());
+            bookingSearch.get().setBookingStatus(Status.CLOSED);
             return booking;
         } else throw new IllegalArgumentException("Invalid booking cancel!");
 
